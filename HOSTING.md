@@ -5,6 +5,7 @@
 ### Best Choice for Professional Portfolio
 
 Azure App Service Free tier offers:
+
 - ✅ **Professional domain**: `yourname.azurewebsites.net`
 - ✅ **Industry standard**: Employers recognize Azure
 - ✅ **Easy deployment**: GitHub Actions integration

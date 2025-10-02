@@ -3,6 +3,7 @@
 ## Free Azure App Service Deployment
 
 This application can be deployed to Azure App Service using the free F1 tier, which provides:
+
 - 1 GB storage
 - 60 CPU minutes per day
 - Custom domain support (with your own domain)
@@ -18,6 +19,7 @@ This application can be deployed to Azure App Service using the free F1 tier, wh
 ### Option 1: Using Azure Portal (Recommended for beginners)
 
 1. **Create App Service**:
+
    - Go to [Azure Portal](https://portal.azure.com)
    - Click "Create a resource" → "Web App"
    - Fill in the details:
@@ -30,6 +32,7 @@ This application can be deployed to Azure App Service using the free F1 tier, wh
      - **Pricing plan**: Free F1
 
 2. **Configure Deployment**:
+
    - Go to your App Service → "Deployment Center"
    - Choose "GitHub" as source
    - Authorize GitHub access
@@ -45,11 +48,13 @@ This application can be deployed to Azure App Service using the free F1 tier, wh
 ### Option 2: Using GitHub Actions (Automated)
 
 1. **Get Publish Profile**:
+
    - In Azure Portal, go to your App Service
    - Click "Get publish profile" and download the file
    - Copy the entire contents
 
 2. **Configure GitHub Secrets**:
+
    - Go to your GitHub repository
    - Settings → Secrets and variables → Actions
    - Add these secrets:
@@ -82,6 +87,7 @@ az webapp deployment source config --name your-unique-app-name --resource-group 
 ## Application Configuration
 
 The application is configured to:
+
 - Serve the portfolio at the root URL (`/`)
 - Provide API endpoints at `/api/products`
 - Include Swagger UI at `/swagger`
@@ -90,6 +96,7 @@ The application is configured to:
 ## Post-Deployment
 
 1. **Test the deployment**:
+
    - Visit `https://your-app-name.azurewebsites.net`
    - Check portfolio loads correctly
    - Test API at `https://your-app-name.azurewebsites.net/api/products`
@@ -127,9 +134,10 @@ The application is configured to:
 - Sleeps after 20 minutes of inactivity
 - 60 CPU minutes per day limit
 - Shared infrastructure
-- No custom SSL certificates (uses *.azurewebsites.net)
+- No custom SSL certificates (uses \*.azurewebsites.net)
 
 For production use, consider upgrading to Basic tier ($13/month) for:
+
 - Always-on capability
 - Custom SSL certificates
 - Daily backups
