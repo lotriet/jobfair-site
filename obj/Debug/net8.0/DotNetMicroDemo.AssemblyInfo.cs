@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("DotNetMicroDemo")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+928bdb4814cd86c86a408f7eef1d470d4a73556c")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+a30b3fd624f1b1a1aa70dd30c0b2127119921baf")]
 [assembly: System.Reflection.AssemblyProductAttribute("DotNetMicroDemo")]
 [assembly: System.Reflection.AssemblyTitleAttribute("DotNetMicroDemo")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

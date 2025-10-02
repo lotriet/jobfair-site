@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Business Card - QR Code</title>
+    <script src="https://cdn.jsdelivr.net/npm/qrcode@1.5.3/build/qrcode.min.js"></script>
+    <style>
+      @page {
+        size: A4;
+        margin: 1cm;
+      }
+
+      body {
+        font-family: "Segoe UI", Arial, sans-serif;
+        margin: 0;
+        padding: 20px;
+        background: white;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 100vh;
+      }
+
+      .business-card {
+        width: 350px;
+        height: 200px;
+        border: 2px solid #333;
+        border-radius: 10px;
+        padding: 20px;
+        display: grid;
+        grid-template-columns: 1fr 120px;
+        gap: 20px;
+        background: white;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      }
+
+      .info-section {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+      }
+
+      .name {
+        font-size: 22px;
+        font-weight: bold;
+        color: #333;
+        margin: 0 0 12px 0;
+        line-height: 1.2;
+      }
+
+      .title {
+        font-size: 16px;
+        color: #007bff;
+        margin: 0 0 18px 0;
+        font-weight: 600;
+        line-height: 1.3;
+      }
+
+      .tech {
+        font-size: 12px;
+        color: #666;
+        margin: 0 0 10px 0;
+        line-height: 1.4;
+      }
+
+      .url {
+        font-size: 11px;
+        color: #888;
+        font-family: monospace;
+        word-break: break-all;
+        margin: 8px 0 0 0;
+        line-height: 1.3;
+      }
+
+      .url a:hover {
+        color: #007bff !important;
+        text-decoration: underline !important;
+      }
+
+      .qr-section {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .qr-label {
+        font-size: 10px;
+        color: #666;
+        margin-bottom: 5px;
+        text-align: center;
+      }
+
+      #qrcode {
+        border: 1px solid #ddd;
+        width: 100px;
+        height: 100px;
+      }
+
+      #qrcode a:hover img {
+        border: 2px solid #007bff !important;
+        transform: scale(1.05);
+        transition: all 0.2s ease;
+      }
+
+      #qrcode canvas {
+        width: 100px !important;
+        height: 100px !important;
+      }
+
+      .print-button {
+        position: fixed;
+        top: 20px;
+        right: 20px;
+        background: #007bff;
+        color: white;
+        border: none;
+        padding: 10px 20px;
+        border-radius: 5px;
+        cursor: pointer;
+        font-size: 14px;
+      }
+
+      @media print {
+        body {
+          min-height: auto;
+          padding: 0;
+          margin: 0;
+          display: block;
+        }
+        .business-card {
+          margin: 50px auto;
+          box-shadow: none;
+        }
+        .print-button {
+          display: none;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <button class="print-button" onclick="window.print()">🖨️ Print Card</button>
+
+    <div class="business-card">
+      <div class="info-section">
+        <div class="name">Christo Lotriet</div>
+        <div class="title">C# Web Developer</div>
+        <div class="tech">.NET 8 • Azure • SQL</div>
+        <div class="tech">API Development</div>
+        <div class="url">
+          <a
+            href="https://lotriet-jobfair-site-d4gvegbgaybne9cq.canadacentral-01.azurewebsites.net"
+            target="_blank"
+            style="color: #888; text-decoration: none"
+          >
+            Live .NET Demo
+          </a>
+        </div>
+        <div
+          style="font-size: 9px; color: #999; margin-top: 8px; line-height: 1.3"
+        >
+          Async/await, SQLite, Retry Policy, Azure hosting
+        </div>
+      </div>
+
+      <div class="qr-section">
+        <div class="qr-label">Tap/Scan for Live Demo</div>
+        <div id="qrcode">
+          <a
+            href="https://lotriet-jobfair-site-d4gvegbgaybne9cq.canadacentral-01.azurewebsites.net"
+            target="_blank"
+            style="text-decoration: none"
+          >
+            <img
+              id="qr-image"
+              style="
+                width: 100px;
+                height: 100px;
+                border: 1px solid #ddd;
+                cursor: pointer;
+              "
+              alt="QR Code Loading..."
+              title="Click to view live demo"
+            />
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      const url =
+        "https://lotriet-jobfair-site-d4gvegbgaybne9cq.canadacentral-01.azurewebsites.net";
+
+      // Method 1: Try using QR Code library
+      function generateQRWithLibrary() {
+        if (typeof QRCode !== "undefined") {
+          QRCode.toDataURL(
+            url,
+            {
+              width: 100,
+              height: 100,
+              color: {
+                dark: "#000000",
+                light: "#FFFFFF",
+              },
+              errorCorrectionLevel: "M",
+            },
+            function (error, dataURL) {
+              if (!error && dataURL) {
+                document.getElementById("qr-image").src = dataURL;
+                console.log("QR code generated with library!");
+              } else {
+                generateQRWithAPI();
+              }
+            }
+          );
+        } else {
+          generateQRWithAPI();
+        }
+      }
+
+      // Method 2: Use online QR API as fallback
+      function generateQRWithAPI() {
+        const encodedURL = encodeURIComponent(url);
+        const qrAPIUrl = `https://api.qrserver.com/v1/create-qr-code/?size=100x100&data=${encodedURL}`;
+        document.getElementById("qr-image").src = qrAPIUrl;
+        console.log("QR code generated with API!");
+      }
+
+      // Wait for page to load, then try both methods
+      window.addEventListener("load", function () {
+        setTimeout(function () {
+          generateQRWithLibrary();
+        }, 500); // Small delay to ensure library loads
+      });
+
+      // Fallback if image fails to load
+      document
+        .getElementById("qr-image")
+        .addEventListener("error", function () {
+          generateQRWithAPI();
+        });
+    </script>
+  </body>
+</html>
