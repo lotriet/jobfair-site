@@ -1,6 +1,21 @@
 # 🚀 Free Hosting Guide for .NET Micro Demo
 
-## 🔥 **Railway.app (Recommended - Easiest)**
+## 🔥 **Azure App Service (Recommended - Professional)**
+
+### Best Choice for Professional Portfolio
+
+Azure App Service Free tier offers:
+- ✅ **Professional domain**: `yourname.azurewebsites.net`
+- ✅ **Industry standard**: Employers recognize Azure
+- ✅ **Easy deployment**: GitHub Actions integration
+- ✅ **Custom domains**: Add your own domain
+- ✅ **60 CPU minutes/day**: Perfect for demo purposes
+
+**Quick Start**: See `AZURE-DEPLOYMENT.md` for detailed setup guide
+
+---
+
+## 🚀 **Railway.app (Alternative - Easiest)**
 
 ### Step 1: Setup
 
