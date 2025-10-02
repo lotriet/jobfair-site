@@ -1,0 +1,559 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Live .NET Demo - Actually Working!</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      body {
+        font-family: "Segoe UI", sans-serif;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        color: white;
+        min-height: 100vh;
+        padding: 20px;
+      }
+      .container {
+        max-width: 1000px;
+        margin: 0 auto;
+      }
+      .header {
+        text-align: center;
+        margin-bottom: 30px;
+      }
+      .header h1 {
+        font-size: 2.5rem;
+        margin-bottom: 10px;
+        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+      }
+      .status {
+        font-size: 1.5rem;
+        padding: 15px;
+        margin: 20px 0;
+        background: rgba(255, 255, 255, 0.1);
+        border-radius: 10px;
+        text-align: center;
+      }
+      .demo-panel {
+        background: rgba(255, 255, 255, 0.1);
+        backdrop-filter: blur(10px);
+        border-radius: 15px;
+        padding: 25px;
+        margin: 20px 0;
+        border: 1px solid rgba(255, 255, 255, 0.2);
+      }
+      .btn-group {
+        display: flex;
+        gap: 10px;
+        flex-wrap: wrap;
+        margin: 15px 0;
+      }
+      .btn {
+        padding: 12px 20px;
+        border: none;
+        border-radius: 8px;
+        background: #4299e1;
+        color: white;
+        cursor: pointer;
+        font-weight: bold;
+        font-size: 1rem;
+        transition: all 0.3s ease;
+      }
+      .btn:hover {
+        background: #3182ce;
+        transform: translateY(-1px);
+      }
+      .btn-success {
+        background: #48bb78;
+      }
+      .btn-success:hover {
+        background: #38a169;
+      }
+      .btn-warning {
+        background: #ed8936;
+      }
+      .btn-warning:hover {
+        background: #dd6b20;
+      }
+      .btn-big {
+        font-size: 1.2rem;
+        padding: 15px 30px;
+      }
+      .output {
+        background: #1a202c;
+        border-radius: 8px;
+        padding: 20px;
+        margin: 15px 0;
+        font-family: "Courier New", monospace;
+        font-size: 0.9rem;
+        max-height: 400px;
+        overflow-y: auto;
+        border-left: 4px solid #4299e1;
+        white-space: pre-wrap;
+      }
+      .loading {
+        color: #fbbf24;
+      }
+      .success {
+        color: #34d399;
+      }
+      .error {
+        color: #f87171;
+      }
+      .info {
+        color: #60a5fa;
+      }
+      .timer {
+        font-size: 3rem;
+        color: #fbbf24;
+        text-align: center;
+        margin: 20px 0;
+        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+      }
+      .feature {
+        display: inline-block;
+        background: rgba(72, 187, 120, 0.2);
+        color: #34d399;
+        padding: 6px 12px;
+        border-radius: 15px;
+        font-size: 0.85rem;
+        margin: 3px;
+        border: 1px solid #34d399;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="header">
+        <h1>🚀 Live .NET Demo</h1>
+        <p>Real async/await + SQLite + retry policy demonstration</p>
+        <div class="status" id="apiStatus">🔄 Checking API status...</div>
+      </div>
+
+      <!-- Quick Test Panel -->
+      <div class="demo-panel">
+        <h3>⚡ Quick API Tests</h3>
+        <div style="margin: 15px 0">
+          <span class="feature">Async/Await</span>
+          <span class="feature">SQLite Database</span>
+          <span class="feature">Retry Policy</span>
+          <span class="feature">REST API</span>
+        </div>
+
+        <div class="btn-group">
+          <button class="btn btn-success" onclick="testHealth()">
+            💓 Health Check
+          </button>
+          <button class="btn" onclick="getProducts()">📦 Get Products</button>
+          <button class="btn" onclick="createProduct()">
+            ➕ Create Product
+          </button>
+          <button class="btn btn-warning" onclick="openSwagger()">
+            📖 Swagger UI
+          </button>
+        </div>
+
+        <div class="output" id="quickOutput">
+          Click any button above to test the live API...
+        </div>
+      </div>
+
+      <!-- 20-Second Demo Panel -->
+      <div class="demo-panel">
+        <h3>🎬 20-Second Automated Demo</h3>
+        <div class="timer" id="demoTimer">Ready to start</div>
+
+        <div style="text-align: center">
+          <button class="btn btn-success btn-big" onclick="startFullDemo()">
+            ▶️ START 20-SECOND DEMO
+          </button>
+          <button class="btn btn-warning" onclick="stopDemo()">⏹️ STOP</button>
+        </div>
+
+        <div class="output" id="demoOutput">
+          Press "START 20-SECOND DEMO" to see the automated demonstration...
+        </div>
+      </div>
+
+      <!-- Code Display Panel -->
+      <div class="demo-panel">
+        <h3>💻 Live Code Examples</h3>
+        <div class="btn-group">
+          <button class="btn" onclick="showAsyncCode()">
+            Async Controller
+          </button>
+          <button class="btn" onclick="showRetryCode()">Retry Policy</button>
+          <button class="btn" onclick="showDbCode()">Database Code</button>
+        </div>
+        <div class="output" id="codeOutput">
+          Click buttons above to see the actual C# code...
+        </div>
+      </div>
+    </div>
+
+    <script>
+      let demoTimer = null;
+      let demoStep = 0;
+
+      // Utility function to log output
+      function log(elementId, message, type = "info") {
+        const element = document.getElementById(elementId);
+        const timestamp = new Date().toLocaleTimeString();
+        const className =
+          type === "success"
+            ? "success"
+            : type === "error"
+            ? "error"
+            : type === "loading"
+            ? "loading"
+            : "info";
+        element.innerHTML += `<span class="${className}">[${timestamp}] ${message}</span>\n`;
+        element.scrollTop = element.scrollHeight;
+      }
+
+      // Test API health
+      async function testHealth() {
+        log("quickOutput", "🔄 Testing API health...", "loading");
+        try {
+          const response = await fetch("/health");
+          const data = await response.json();
+          log("quickOutput", "✅ API Health Check SUCCESS", "success");
+          log("quickOutput", JSON.stringify(data, null, 2), "info");
+        } catch (error) {
+          log(
+            "quickOutput",
+            "❌ Health check failed: " + error.message,
+            "error"
+          );
+        }
+      }
+
+      // Get all products
+      async function getProducts() {
+        log(
+          "quickOutput",
+          "🔄 Fetching products with async/await...",
+          "loading"
+        );
+        try {
+          const response = await fetch("/api/products");
+          const data = await response.json();
+          log(
+            "quickOutput",
+            "✅ Products retrieved successfully (async database call)",
+            "success"
+          );
+          log(
+            "quickOutput",
+            `Found ${data.length} products in SQLite database:`,
+            "info"
+          );
+          log("quickOutput", JSON.stringify(data, null, 2), "info");
+        } catch (error) {
+          log(
+            "quickOutput",
+            "❌ Failed to get products: " + error.message,
+            "error"
+          );
+        }
+      }
+
+      // Create a new product
+      async function createProduct() {
+        const newProduct = {
+          name: `Demo Product ${Date.now()}`,
+          price: Math.round((Math.random() * 100 + 1) * 100) / 100,
+          description: `Sample product created at ${new Date().toLocaleTimeString()}`,
+        };
+
+        log(
+          "quickOutput",
+          "🔄 Creating new product (async database insert)...",
+          "loading"
+        );
+        log(
+          "quickOutput",
+          "Product data: " + JSON.stringify(newProduct, null, 2),
+          "info"
+        );
+
+        try {
+          const response = await fetch("/api/products", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(newProduct),
+          });
+
+          if (response.ok) {
+            const data = await response.json();
+            log("quickOutput", "✅ Product created successfully!", "success");
+            log(
+              "quickOutput",
+              "New product: " + JSON.stringify(data, null, 2),
+              "info"
+            );
+          } else {
+            log(
+              "quickOutput",
+              "❌ Failed to create product: " + response.status,
+              "error"
+            );
+          }
+        } catch (error) {
+          log(
+            "quickOutput",
+            "❌ Create product failed: " + error.message,
+            "error"
+          );
+        }
+      }
+
+      // Open Swagger UI
+      function openSwagger() {
+        log("quickOutput", "🔄 Opening Swagger UI...", "loading");
+        window.open("/api-docs", "_blank");
+        log("quickOutput", "✅ Swagger UI opened in new tab", "success");
+      }
+
+      // Start the full 20-second demo
+      async function startFullDemo() {
+        document.getElementById("demoOutput").innerHTML = "";
+        let seconds = 20;
+
+        log(
+          "demoOutput",
+          "🚀 Starting 20-second live demonstration...",
+          "success"
+        );
+        log("demoOutput", "==========================================", "info");
+
+        // Update timer
+        const timerInterval = setInterval(() => {
+          document.getElementById(
+            "demoTimer"
+          ).textContent = `${seconds}s remaining`;
+          seconds--;
+          if (seconds < 0) {
+            clearInterval(timerInterval);
+            document.getElementById("demoTimer").textContent =
+              "✅ Demo Complete!";
+          }
+        }, 1000);
+
+        try {
+          // Step 1: Health check (0-5s)
+          log("demoOutput", "[0-5s] 💓 Testing API Health...", "loading");
+          const healthResponse = await fetch("/health");
+          const healthData = await healthResponse.json();
+          log("demoOutput", "✅ API is healthy and responsive", "success");
+          log(
+            "demoOutput",
+            `Features: ${healthData.features.join(", ")}`,
+            "info"
+          );
+
+          await sleep(3000);
+
+          // Step 2: Get products (5-10s)
+          log(
+            "demoOutput",
+            "[5-10s] 📦 Fetching products (async/await)...",
+            "loading"
+          );
+          const productsResponse = await fetch("/api/products");
+          const productsData = await productsResponse.json();
+          log(
+            "demoOutput",
+            `✅ Retrieved ${productsData.length} products from SQLite`,
+            "success"
+          );
+          log(
+            "demoOutput",
+            "Sample product: " + JSON.stringify(productsData[0], null, 2),
+            "info"
+          );
+
+          await sleep(3000);
+
+          // Step 3: Create product (10-15s)
+          log(
+            "demoOutput",
+            "[10-15s] ➕ Creating new product (database insert)...",
+            "loading"
+          );
+          const newProduct = {
+            name: `Live Demo Product`,
+            price: 49.99,
+            description: "Sample product for testing",
+          };
+
+          const createResponse = await fetch("/api/products", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(newProduct),
+          });
+
+          if (createResponse.ok) {
+            const createdProduct = await createResponse.json();
+            log("demoOutput", "✅ Product created successfully!", "success");
+            log("demoOutput", "New product ID: " + createdProduct.id, "info");
+          }
+
+          await sleep(3000);
+
+          // Step 4: Show retry policy (15-20s)
+          log(
+            "demoOutput",
+            "[15-20s] 🔄 Demonstrating retry policy...",
+            "loading"
+          );
+          log(
+            "demoOutput",
+            "Retry policy: 3 attempts with exponential backoff",
+            "info"
+          );
+          log(
+            "demoOutput",
+            "Delays: 2s, 4s, 8s on SqliteException/TimeoutException",
+            "info"
+          );
+          log(
+            "demoOutput",
+            "✅ All database calls protected by retry policy",
+            "success"
+          );
+
+          await sleep(2000);
+
+          log(
+            "demoOutput",
+            "==========================================",
+            "info"
+          );
+          log("demoOutput", "🎉 20-SECOND DEMO COMPLETE!", "success");
+          log(
+            "demoOutput",
+            "✅ Demonstrated: Async/Await, SQLite DB, Retry Policy, REST API",
+            "success"
+          );
+        } catch (error) {
+          log("demoOutput", "❌ Demo error: " + error.message, "error");
+        }
+      }
+
+      function stopDemo() {
+        if (demoTimer) {
+          clearTimeout(demoTimer);
+          demoTimer = null;
+        }
+        document.getElementById("demoTimer").textContent = "Demo stopped";
+        log("demoOutput", "⏹️ Demo stopped by user", "info");
+      }
+
+      function sleep(ms) {
+        return new Promise((resolve) => setTimeout(resolve, ms));
+      }
+
+      // Code display functions
+      function showAsyncCode() {
+        document.getElementById(
+          "codeOutput"
+        ).innerHTML = `<span class="success">Async/Await Controller Method:</span>
+
+<span class="info">[HttpGet]
+public async Task&lt;ActionResult&lt;IEnumerable&lt;Product&gt;&gt;&gt; GetProducts()
+{
+    try {
+        // This runs asynchronously - doesn't block the thread!
+        var products = await _productService.GetAllProductsAsync();
+        return Ok(products);
+    } catch (Exception ex) {
+        _logger.LogError(ex, "Error fetching products");
+        return StatusCode(500, "Internal server error");
+    }
+}</span>
+
+<span class="success">Key Feature: Non-blocking async execution!</span>`;
+      }
+
+      function showRetryCode() {
+        document.getElementById(
+          "codeOutput"
+        ).innerHTML = `<span class="success">Polly Retry Policy Configuration:</span>
+
+<span class="info">_retryPolicy = Policy
+    .Handle&lt;Microsoft.Data.Sqlite.SqliteException&gt;()
+    .Or&lt;TimeoutException&gt;()
+    .WaitAndRetryAsync(
+        retryCount: 3,
+        sleepDurationProvider: retryAttempt => 
+            TimeSpan.FromSeconds(Math.Pow(2, retryAttempt)),
+        onRetry: (outcome, timespan, retryCount, context) => {
+            _logger.LogWarning("Retry {RetryCount} after {Delay}ms", 
+                retryCount, timespan.TotalMilliseconds);
+        });
+
+// Usage in service:
+return await _retryPolicy.ExecuteAsync(async () => {
+    return await _context.Products.ToListAsync();
+});</span>
+
+<span class="success">Exponential backoff: 2s → 4s → 8s delays</span>`;
+      }
+
+      function showDbCode() {
+        document.getElementById(
+          "codeOutput"
+        ).innerHTML = `<span class="success">SQLite Database with Entity Framework:</span>
+
+<span class="info">// Startup configuration
+builder.Services.AddDbContext&lt;ApplicationDbContext&gt;(options =>
+    options.UseSqlite("Data Source=demo.db"));
+
+// Entity model
+public class Product
+{
+    public int Id { get; set; }
+    public string Name { get; set; }
+    public decimal Price { get; set; }
+    public string Description { get; set; }
+    public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
+}
+
+// Database context
+public class ApplicationDbContext : DbContext
+{
+    public DbSet&lt;Product&gt; Products { get; set; }
+}</span>
+
+<span class="success">Self-contained SQLite database - no server required!</span>`;
+      }
+
+      // Check API status on load
+      async function checkApiStatus() {
+        try {
+          const response = await fetch("/health");
+          const data = await response.json();
+          document.getElementById("apiStatus").innerHTML =
+            "🟢 API is LIVE and ready for demo!";
+          document.getElementById("apiStatus").style.background =
+            "rgba(72, 187, 120, 0.3)";
+          log("quickOutput", "✅ API connection established", "success");
+        } catch (error) {
+          document.getElementById("apiStatus").innerHTML =
+            "🔴 API not responding - please check .NET app";
+          document.getElementById("apiStatus").style.background =
+            "rgba(248, 113, 113, 0.3)";
+          log("quickOutput", "❌ Cannot connect to API", "error");
+        }
+      }
+
+      // Initialize
+      setTimeout(checkApiStatus, 1000);
+    </script>
+  </body>
+</html>

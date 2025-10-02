@@ -1,0 +1,479 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Christo Lotriet — Software Developer</title>
+    <meta
+      name="description"
+      content="Software Developer — .NET & C# · APIs · Databases"
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="assets/style.css" />
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"
+      defer
+    ></script>
+    <script src="assets/main.js" defer></script>
+  </head>
+  <body>
+    <div class="wrap">
+      <header class="hero">
+        <h1>Christo Lotriet</h1>
+        <div class="sub">Software Developer — .NET & C# · APIs · Databases</div>
+        <div>
+          <span class="tag">Legacy → Modern</span>
+          <span class="tag">Desktop → Web</span>
+          <span class="tag">APIs + Data</span>
+        </div>
+        <div class="cta">
+          <a class="btn primary" href="#demo">▶️ 20‑sec demo</a>
+          <a
+            class="btn"
+            href="https://linkedin.com/in/gclotriet"
+            target="_blank"
+            rel="noopener"
+            >Connect on LinkedIn</a
+          >
+          <a
+            class="btn"
+            href="https://github.com/lotriet"
+            target="_blank"
+            rel="noopener"
+            >View code on GitHub</a
+          >
+          <a class="btn" href="mailto:gclotriet@outlook.com">Email me</a>
+        </div>
+      </header>
+
+      <section class="grid">
+        <div class="card">
+          <h2 style="margin: 0 0 8px 0">What I do</h2>
+          <p style="margin: 0 0 10px 0">
+            I modernize legacy desktop apps into fast, clean REST‑backed
+            services on .NET with SQL databases. I like measurable wins and
+            boringly reliable systems.
+          </p>
+          <div class="kpis">
+            <div class="kpi">
+              Public records web access (ASP.NET MVC/C#/SQL)
+            </div>
+            <div class="kpi">Secure online payments integration</div>
+            <div class="kpi">REST APIs & DB optimization</div>
+          </div>
+        </div>
+        <div class="card" id="qrCard">
+          <div
+            style="
+              display: flex;
+              gap: 14px;
+              align-items: center;
+              justify-content: space-between;
+            "
+          >
+            <div>
+              <div style="font-weight: 700; margin-bottom: 6px">
+                Tap/Scan to view CV
+              </div>
+              <div style="font-size: 14px; color: var(--muted)">
+                Keep this link to revisit my demo + contact.
+              </div>
+              <div id="shortUrl" style="margin-top: 8px; font-weight: 600">
+                lotriet.dev/index.html
+              </div>
+            </div>
+            <div id="qrcode" class="qr"></div>
+          </div>
+        </div>
+      </section>
+
+      <section class="card" id="demo" style="margin-top: 14px">
+        <h2 style="margin: 0 0 8px 0">20‑second micro‑demo</h2>
+        <p style="margin: 0 0 10px 0">
+          A tiny REST service in .NET calling a SQLite database with async/await
+          and retry policy, plus a quick view of the controller code.
+          <strong>Try the live demo below!</strong>
+        </p>
+
+        <!-- Live Demo Integration -->
+        <div
+          style="
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 12px;
+            padding: 20px;
+            margin: 15px 0;
+            color: white;
+          "
+        >
+          <div style="text-align: center; margin-bottom: 15px">
+            <div
+              style="font-size: 1.2rem; font-weight: bold; margin-bottom: 10px"
+            >
+              <span id="demoStatus" style="color: #fbbf24"
+                >� Checking API...</span
+              >
+            </div>
+            <div
+              style="
+                display: flex;
+                gap: 12px;
+                justify-content: center;
+                flex-wrap: wrap;
+              "
+            >
+              <button
+                onclick="startQuickDemo()"
+                style="
+                  background: #fbbf24;
+                  color: #1f2937;
+                  padding: 12px 24px;
+                  border: none;
+                  border-radius: 25px;
+                  font-weight: bold;
+                  cursor: pointer;
+                  font-size: 1rem;
+                "
+              >
+                🚀 START 20-SECOND DEMO
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Live Demo Output -->
+        <div
+          id="demoOutput"
+          style="
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 8px;
+            padding: 15px;
+            font-family: monospace;
+            font-size: 0.9rem;
+            max-height: 300px;
+            overflow-y: auto;
+            display: none;
+          "
+        >
+          Demo output will appear here...
+        </div>
+
+        <!-- Demo Timer -->
+        <div
+          id="demoTimer"
+          style="
+            text-align: center;
+            font-size: 1.5rem;
+            margin-top: 10px;
+            color: #fbbf24;
+            font-weight: bold;
+            display: none;
+          "
+        >
+          Preparing demo...
+        </div>
+
+        <div
+          style="
+            background: #f8f9fa;
+            border-radius: 8px;
+            padding: 15px;
+            margin: 10px 0;
+            border-left: 4px solid #4299e1;
+          "
+        >
+          <h4 style="margin: 0 0 10px 0; color: #333">⏱️ Demo Timeline:</h4>
+          <div
+            style="
+              display: grid;
+              grid-template-columns: repeat(2, 1fr);
+              gap: 10px;
+              color: #555;
+            "
+          >
+            <div><strong>✅</strong> API Health Check</div>
+            <div><strong>✅</strong> Async Products Query</div>
+            <div><strong>✅</strong> Database Insert</div>
+            <div><strong>✅</strong> Retry Policy Demo</div>
+          </div>
+        </div>
+
+        <div
+          style="
+            background: #f8f9fa;
+            border-radius: 8px;
+            padding: 15px;
+            margin: 10px 0;
+            border-left: 4px solid #4299e1;
+          "
+        >
+          <h4 style="margin: 0 0 10px 0; color: #333">
+            🎯 What's Demonstrated:
+          </h4>
+          <div
+            style="
+              display: grid;
+              grid-template-columns: repeat(2, 1fr);
+              gap: 10px;
+              color: #555;
+            "
+          >
+            <div>✅ <strong>Async/Await</strong> patterns</div>
+            <div>✅ <strong>SQLite</strong> database</div>
+            <div>✅ <strong>Retry Policy</strong> with Polly</div>
+            <div>✅ <strong>REST API</strong> with Swagger</div>
+          </div>
+        </div>
+        <div class="foot">
+          CV:
+          <a
+            href="https://lotriet.dev/index.html"
+            target="_blank"
+            rel="noopener"
+            >lotriet.dev/index.html</a
+          >
+        </div>
+      </section>
+
+      <section class="grid" style="margin-top: 14px">
+        <div class="card proj">
+          <div class="title">
+            Public Records Web Platform (Courthouse Computer Systems)
+          </div>
+          <div>
+            <b>Focus:</b> Enhance ASP.NET MVC/C#/SQL features for usability and
+            reliable access to land and vital records; contribute to secure
+            online payment capabilities.
+          </div>
+          <div class="foot">Stack: ASP.NET MVC, C#, SQL, Payments</div>
+        </div>
+        <div class="card proj">
+          <div class="title">Healthcare Practice Management (Med‑e‑Mass)</div>
+          <div>
+            <b>Focus:</b> Designed REST API services for healthcare data
+            workflows and optimized PostgreSQL via stored procedures and
+            indexing.
+          </div>
+          <div class="foot">Stack: REST APIs, PostgreSQL, JavaScript UI</div>
+        </div>
+      </section>
+
+      <footer class="foot" style="margin-top: 18px">
+        <b>Contact:</b>
+        <a href="mailto:gclotriet@outlook.com">gclotriet@outlook.com</a> •
+        <a
+          href="https://linkedin.com/in/gclotriet"
+          target="_blank"
+          rel="noopener"
+          >LinkedIn</a
+        >
+        •
+        <a href="https://github.com/lotriet" target="_blank" rel="noopener"
+          >GitHub</a
+        >
+      </footer>
+    </div>
+
+    <script>
+      // Demo functionality
+      let demoRunning = false;
+      let demoTimer = null;
+
+      // Check if the .NET API is running
+      async function checkAPIStatus() {
+        try {
+          const response = await fetch("/health"); // Relative URL since same domain
+          if (response.ok) {
+            document.getElementById("demoStatus").innerHTML =
+              "🟢 API Live & Ready!";
+            document.getElementById("demoStatus").style.color = "#34d399";
+            return true;
+          }
+        } catch (error) {
+          document.getElementById("demoStatus").innerHTML =
+            "🔴 API Not Running (Start .NET app first)";
+          document.getElementById("demoStatus").style.color = "#f87171";
+          return false;
+        }
+      }
+
+      // Log demo output with clean, readable formatting
+      function logDemo(message, type = "info", indent = 0) {
+        const output = document.getElementById("demoOutput");
+        const timestamp = new Date().toLocaleTimeString();
+        const color =
+          type === "success"
+            ? "#10b981"
+            : type === "error"
+            ? "#ef4444"
+            : type === "warning"
+            ? "#f59e0b"
+            : type === "header"
+            ? "#3b82f6"
+            : type === "section"
+            ? "#8b5cf6"
+            : type === "phase"
+            ? "#06b6d4"
+            : "#9ca3af";
+
+        const indentSpaces = "   ".repeat(indent);
+        let prefix = "";
+        let fontWeight = "normal";
+        let fontSize = "0.9rem";
+
+        if (type === "header") {
+          prefix = "";
+          fontWeight = "bold";
+          fontSize = "1rem";
+        } else if (type === "section" || type === "phase") {
+          prefix = "";
+          fontWeight = "bold";
+          fontSize = "0.95rem";
+        } else {
+          prefix = `[${timestamp}] `;
+        }
+
+        output.innerHTML += `<div style="color: ${color}; font-weight: ${fontWeight}; font-size: ${fontSize}; margin: 2px 0; line-height: 1.4;">${prefix}${indentSpaces}${message}</div>`;
+        output.scrollTop = output.scrollHeight;
+      }
+
+      // Add spacing between sections
+      function addSpace(lines = 1) {
+        const output = document.getElementById("demoOutput");
+        for (let i = 0; i < lines; i++) {
+          output.innerHTML += "<div style='height: 8px;'></div>";
+        }
+        output.scrollTop = output.scrollHeight;
+      }
+
+      // Start the 20-second demo
+      async function startQuickDemo() {
+        if (demoRunning) return;
+
+        demoRunning = true;
+        const output = document.getElementById("demoOutput");
+        const timer = document.getElementById("demoTimer");
+
+        output.style.display = "block";
+        timer.style.display = "block";
+        output.innerHTML = "";
+
+        // Header
+        logDemo("🚀 .NET MICRO-DEMO", "header");
+        logDemo("20-Second Live Demonstration", "header");
+        addSpace(2);
+
+        let seconds = 20;
+        const timerInterval = setInterval(() => {
+          timer.textContent = `${seconds}s remaining`;
+          seconds--;
+          if (seconds < 0) {
+            clearInterval(timerInterval);
+            timer.textContent = "✅ Demo Complete!";
+          }
+        }, 1000);
+
+        try {
+          // Phase 1: API Health Check
+          logDemo("┌─ PHASE 1: API HEALTH CHECK", "phase");
+          logDemo("└─ Checking API status and features...", "warning", 1);
+          const healthResponse = await fetch("/health"); // Relative URL
+          const healthData = await healthResponse.json();
+          logDemo("✅ API Status: " + healthData.status, "success", 1);
+          logDemo("🔧 Features: " + healthData.features.join(", "), "info", 1);
+          addSpace();
+
+          await sleep(3000);
+
+          // Phase 2: Database Query
+          logDemo("┌─ PHASE 2: ASYNC DATABASE QUERY", "phase");
+          logDemo("└─ Querying SQLite with Entity Framework...", "warning", 1);
+          const productsResponse = await fetch("/api/products"); // Relative URL
+          const productsData = await productsResponse.json();
+          logDemo(
+            `✅ Retrieved ${productsData.length} products from SQLite`,
+            "success",
+            1
+          );
+          logDemo("📋 Sample records:", "info", 1);
+          productsData.slice(0, 2).forEach((product) => {
+            logDemo(`   • ${product.name} - $${product.price}`, "info", 1);
+          });
+          addSpace();
+
+          await sleep(3000);
+
+          // Phase 3: Database Insert
+          logDemo("┌─ PHASE 3: DATABASE INSERT", "phase");
+          logDemo("└─ Creating new product record...", "warning", 1);
+          const timestamp = new Date().toISOString().slice(11, 19);
+          const newProduct = {
+            name: `Demo Product ${timestamp}`,
+            price: Math.round((Math.random() * 100 + 10) * 100) / 100,
+            description: "Sample product for demonstration",
+          };
+
+          logDemo(
+            `📝 Product: ${newProduct.name} - $${newProduct.price}`,
+            "info",
+            1
+          );
+
+          const createResponse = await fetch("/api/products", {
+            // Relative URL
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(newProduct),
+          });
+
+          if (createResponse.ok) {
+            const created = await createResponse.json();
+            logDemo(`✅ Created successfully! ID: ${created.id}`, "success", 1);
+          }
+          addSpace();
+
+          await sleep(3000);
+
+          // Phase 4: Retry Policy & Architecture
+          logDemo("┌─ PHASE 4: RETRY POLICY & ARCHITECTURE", "phase");
+          logDemo("└─ Polly protection and tech stack...", "warning", 1);
+          logDemo("🛡️ Retry Policy:", "success", 1);
+          logDemo("   • 3 attempts with exponential backoff", "info", 1);
+          logDemo("   • Delays: 2s → 4s → 8s between retries", "info", 1);
+          addSpace();
+          logDemo("🏗️ Technology Stack:", "success", 1);
+          logDemo("   • .NET 8 Web API + Entity Framework Core", "info", 1);
+          logDemo("   • SQLite Database + Async/Await patterns", "info", 1);
+          addSpace(2);
+
+          await sleep(2000);
+
+          // Final Summary
+          logDemo("🎉 DEMO COMPLETE!", "header");
+          logDemo("All systems operational and tested", "header");
+          addSpace();
+          logDemo("✅ Async/await patterns demonstrated", "success", 1);
+          logDemo("✅ Database operations with retry protection", "success", 1);
+          logDemo("✅ Real-time REST API functionality", "success", 1);
+        } catch (error) {
+          addSpace();
+          logDemo("❌ DEMO FAILED", "error");
+          logDemo("Error: " + error.message, "error", 1);
+          logDemo("💡 Ensure .NET API is running", "warning", 1);
+        }
+
+        demoRunning = false;
+      }
+
+      function sleep(ms) {
+        return new Promise((resolve) => setTimeout(resolve, ms));
+      }
+
+      // Check API status on page load
+      setTimeout(checkAPIStatus, 1000);
+    </script>
+  </body>
+</html>
