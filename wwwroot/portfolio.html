@@ -141,6 +141,9 @@
                 🚀 START 20-SECOND DEMO
               </button>
             </div>
+            <div style="font-size: 0.85rem; color: #9ca3af; margin-top: 8px;">
+              Click to view demo details and live execution
+            </div>
           </div>
         </div>
 
@@ -177,54 +180,65 @@
         </div>
 
         <div
+          id="demoDetails"
           style="
-            background: #f8f9fa;
-            border-radius: 8px;
-            padding: 15px;
-            margin: 10px 0;
-            border-left: 4px solid #4299e1;
+            display: none;
+            opacity: 0;
+            transition: all 0.3s ease-in-out;
+            max-height: 0;
+            overflow: hidden;
           "
         >
-          <h4 style="margin: 0 0 10px 0; color: #333">⏱️ Demo Timeline:</h4>
           <div
             style="
-              display: grid;
-              grid-template-columns: repeat(2, 1fr);
-              gap: 10px;
-              color: #555;
+              background: #f8f9fa;
+              border-radius: 8px;
+              padding: 15px;
+              margin: 10px 0;
+              border-left: 4px solid #4299e1;
             "
           >
-            <div><strong>✅</strong> API Health Check</div>
-            <div><strong>✅</strong> Async Products Query</div>
-            <div><strong>✅</strong> Database Insert</div>
-            <div><strong>✅</strong> Retry Policy Demo</div>
+            <h4 style="margin: 0 0 10px 0; color: #333">⏱️ Demo Timeline:</h4>
+            <div
+              style="
+                display: grid;
+                grid-template-columns: repeat(2, 1fr);
+                gap: 10px;
+                color: #555;
+              "
+            >
+              <div><strong>✅</strong> API Health Check</div>
+              <div><strong>✅</strong> Async Products Query</div>
+              <div><strong>✅</strong> Database Insert</div>
+              <div><strong>✅</strong> Retry Policy Demo</div>
+            </div>
           </div>
-        </div>
 
-        <div
-          style="
-            background: #f8f9fa;
-            border-radius: 8px;
-            padding: 15px;
-            margin: 10px 0;
-            border-left: 4px solid #4299e1;
-          "
-        >
-          <h4 style="margin: 0 0 10px 0; color: #333">
-            🎯 What's Demonstrated:
-          </h4>
           <div
             style="
-              display: grid;
-              grid-template-columns: repeat(2, 1fr);
-              gap: 10px;
-              color: #555;
+              background: #f8f9fa;
+              border-radius: 8px;
+              padding: 15px;
+              margin: 10px 0;
+              border-left: 4px solid #4299e1;
             "
           >
-            <div>✅ <strong>Async/Await</strong> patterns</div>
-            <div>✅ <strong>SQLite</strong> database</div>
-            <div>✅ <strong>Retry Policy</strong> with Polly</div>
-            <div>✅ <strong>REST API</strong> with Swagger</div>
+            <h4 style="margin: 0 0 10px 0; color: #333">
+              🎯 What's Demonstrated:
+            </h4>
+            <div
+              style="
+                display: grid;
+                grid-template-columns: repeat(2, 1fr);
+                gap: 10px;
+                color: #555;
+              "
+            >
+              <div>✅ <strong>Async/Await</strong> patterns</div>
+              <div>✅ <strong>SQLite</strong> database</div>
+              <div>✅ <strong>Retry Policy</strong> with Polly</div>
+              <div>✅ <strong>REST API</strong> with Swagger</div>
+            </div>
           </div>
         </div>
         <div class="foot">
@@ -346,6 +360,20 @@
         output.scrollTop = output.scrollHeight;
       }
 
+      // Expand demo details with smooth animation
+      function expandDemoDetails() {
+        const demoDetails = document.getElementById("demoDetails");
+        demoDetails.style.display = "block";
+        
+        // Force a reflow to ensure display: block is applied
+        demoDetails.offsetHeight;
+        
+        // Set max-height to the actual content height for smooth animation
+        const contentHeight = demoDetails.scrollHeight;
+        demoDetails.style.maxHeight = contentHeight + "px";
+        demoDetails.style.opacity = "1";
+      }
+
       // Start the 20-second demo
       async function startQuickDemo() {
         if (demoRunning) return;
@@ -353,6 +381,9 @@
         demoRunning = true;
         const output = document.getElementById("demoOutput");
         const timer = document.getElementById("demoTimer");
+
+        // Expand demo details first
+        expandDemoDetails();
 
         output.style.display = "block";
         timer.style.display = "block";
