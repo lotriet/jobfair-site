@@ -141,7 +141,7 @@
                 🚀 START 20-SECOND DEMO
               </button>
             </div>
-            <div style="font-size: 0.85rem; color: #9ca3af; margin-top: 8px;">
+            <div style="font-size: 0.85rem; color: #9ca3af; margin-top: 8px">
               Click to view demo details and live execution
             </div>
           </div>
@@ -251,9 +251,7 @@
 
       <section class="grid" style="margin-top: 14px">
         <div class="card proj">
-          <div class="title">
-            Public Records Web Platform (Courthouse Computer Systems)
-          </div>
+          <div class="title">Document Management Web Platform</div>
           <div>
             <b>Focus:</b> Enhance ASP.NET MVC/C#/SQL features for usability and
             reliable access to land and vital records; contribute to secure
@@ -262,7 +260,7 @@
           <div class="foot">Stack: ASP.NET MVC, C#, SQL, Payments</div>
         </div>
         <div class="card proj">
-          <div class="title">Healthcare Practice Management (Med‑e‑Mass)</div>
+          <div class="title">Healthcare Practice Management</div>
           <div>
             <b>Focus:</b> Designed REST API services for healthcare data
             workflows and optimized PostgreSQL via stored procedures and
@@ -364,10 +362,10 @@
       function expandDemoDetails() {
         const demoDetails = document.getElementById("demoDetails");
         demoDetails.style.display = "block";
-        
+
         // Force a reflow to ensure display: block is applied
         demoDetails.offsetHeight;
-        
+
         // Set max-height to the actual content height for smooth animation
         const contentHeight = demoDetails.scrollHeight;
         demoDetails.style.maxHeight = contentHeight + "px";
