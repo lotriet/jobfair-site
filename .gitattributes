@@ -1,0 +1,18 @@
+# Force GitHub to recognize C# properly
+*.cs linguist-language=C#
+*.csproj linguist-language=XML
+
+# Exclude generated/build files from stats
+bin/ linguist-generated=true
+obj/ linguist-generated=true
+wwwroot/lib/ linguist-vendored=true
+
+# Mark HTML files as documentation (reduces their weight)
+*.html linguist-documentation=true
+
+# Exclude specific large files
+wwwroot/assets/* linguist-vendored=true
+
+# Mark utility scripts as vendored (exclude from stats)
+generate_qr.py linguist-vendored=true
+*.bat linguist-vendored=true
