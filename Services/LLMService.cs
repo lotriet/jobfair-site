@@ -56,7 +56,7 @@ INSTRUCTIONS:
 - For technical questions: Reference his .NET, C#, and cloud expertise
 - For personal questions: Be friendly but redirect to professional topics when appropriate
 - Always maintain a professional, knowledgeable tone
-- Use specific examples from his experience when relevant
+- Use specific details from his experience when relevant
 - If asked about availability, confirm he's actively seeking opportunities
 - You are powered by GPT-4.1-mini through GitHub Models API
 
@@ -145,7 +145,7 @@ CONTACT: Email gclotriet@outlook.com, LinkedIn linkedin.com/in/gclotriet, GitHub
                         if (choice.TryGetProperty("message", out var message) &&
                             message.TryGetProperty("content", out var messageContent))
                         {
-                            return messageContent.GetString() ?? "No response generated.";
+                            return messageContent.GetString() ?? "Unable to process request.";
                         }
                     }
                 }
@@ -288,7 +288,7 @@ Provide a direct, helpful response:";
                         if (choice.TryGetProperty("message", out var message) &&
                             message.TryGetProperty("content", out var messageContent))
                         {
-                            return messageContent.GetString() ?? "No response generated.";
+                            return messageContent.GetString() ?? "Unable to process request.";
                         }
                     }
                 }

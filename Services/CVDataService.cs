@@ -15,7 +15,6 @@ namespace DotNetMicroDemo.Services
 
         private CVData LoadCVData()
         {
-            // TODO: Replace this with your actual CV data
             return new CVData
             {
                 Personal = new PersonalInfo
@@ -25,7 +24,7 @@ namespace DotNetMicroDemo.Services
                     Email = "gclotriet@outlook.com",
                     LinkedIn = "linkedin.com/in/gclotriet",
                     GitHub = "github.com/lotriet",
-                    Location = "South Africa", // Update with your location
+                    Location = "South Africa",
                     Summary = "Experienced software developer specializing in .NET technologies, API development, and database solutions. Passionate about modernizing legacy systems and building scalable cloud-based applications."
                 },
 
@@ -112,9 +111,6 @@ namespace DotNetMicroDemo.Services
 
                 Certifications = new List<string>
                 {
-                    // Add your certifications here, for example:
-                    // "Microsoft Certified: Azure Developer Associate",
-                    // "Microsoft Certified: .NET Developer"
                 }
             };
         }
@@ -146,8 +142,7 @@ namespace DotNetMicroDemo.Services
 
         private int CalculateYearsOfExperience()
         {
-            // Simple calculation - you can make this more sophisticated
-            return _cvData.Experience.Count > 0 ? 5 : 0; // Placeholder - update with real calculation
+            return _cvData.Experience.Count > 0 ? 5 : 0;
         }
     }
 }

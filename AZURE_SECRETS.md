@@ -154,7 +154,7 @@ az webapp config appsettings list --resource-group your-rg --name your-app
 Test that secrets are properly configured:
 
 1. Deploy without setting GITHUB_TOKEN (should use fallback responses)
-2. Set GITHUB_TOKEN in Azure (should use real AI responses)
+2. Set GITHUB_TOKEN in Azure (should use live responses)
 3. Monitor logs for authentication success/failure
 
 Your chatbot will gracefully degrade to intelligent fallbacks if the GitHub token is missing or invalid.

@@ -10,7 +10,6 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(c =>
 {
     c.SwaggerDoc("v1", new() { Title = ".NET Micro Demo API", Version = "v1" });
-    // Remove XML comments to avoid missing file error
 });
 
 // Configure Entity Framework with SQLite
