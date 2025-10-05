@@ -31,7 +31,9 @@
           <span class="tag">APIs + Data</span>
         </div>
         <div class="cta">
-          <a class="btn primary" href="#demo">▶️ 20‑sec demo</a>
+          <button class="btn primary" onclick="toggleDemo()">
+            ▶️ 20‑sec demo
+          </button>
           <a class="btn" href="#chatbot">🤖 Ask AI Assistant</a>
           <a
             class="btn"
@@ -97,9 +99,8 @@
         <div class="chatbot-header">
           <h3>🤖 Smart AI Portfolio Assistant</h3>
           <p>
-            Ask me anything about Christo's experience! I use real AI (GPT-4.1)
-            to analyze his live CV data and provide accurate, contextual
-            responses.
+            Ask about Christo's experience, skills, or projects. Powered by
+            GPT-4.1 for accurate, contextual responses.
           </p>
         </div>
 
@@ -130,7 +131,7 @@
         </div>
       </section>
 
-      <section class="card" id="demo" style="margin-top: 14px">
+      <section class="card" id="demo" style="margin-top: 14px; display: none">
         <h2 style="margin: 0 0 8px 0">20‑second micro‑demo</h2>
         <p style="margin: 0 0 10px 0">
           Live REST API with SQLite database, async/await patterns, and retry
@@ -306,6 +307,33 @@
       // Demo functionality
       let demoRunning = false;
       let demoTimer = null;
+
+      // Toggle demo section visibility
+      function toggleDemo() {
+        const demoSection = document.getElementById("demo");
+        const button = event.target;
+
+        if (demoSection.style.display === "none") {
+          // Show demo section
+          demoSection.style.display = "block";
+          button.textContent = "🔼 Hide demo";
+
+          // Smooth scroll to demo section
+          setTimeout(() => {
+            demoSection.scrollIntoView({
+              behavior: "smooth",
+              block: "start",
+            });
+          }, 100);
+
+          // Auto-check API status when demo is shown
+          checkAPIStatus();
+        } else {
+          // Hide demo section
+          demoSection.style.display = "none";
+          button.textContent = "▶️ 20‑sec demo";
+        }
+      }
 
       // Check if the .NET API is running
       async function checkAPIStatus() {

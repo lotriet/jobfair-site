@@ -162,14 +162,15 @@ a:focus,.btn:focus{outline:3px solid var(--ring);outline-offset:2px}
   color: var(--ink);
   border-bottom-left-radius: 6px;
   margin-right: 25%;
+  margin-left: 50px;
   position: relative;
-  padding-left: 24px;
+  padding-left: 20px;
 }
 
 .message-bubble.bot::before {
   content: '🤖';
   position: absolute;
-  left: -40px;
+  left: -44px;
   top: 50%;
   transform: translateY(-50%);
   font-size: 16px;
@@ -298,14 +299,15 @@ a:focus,.btn:focus{outline:3px solid var(--ring);outline-offset:2px}
   margin-bottom: 16px;
   font-weight: 500;
   margin-right: 25%;
+  margin-left: 50px;
   position: relative;
-  padding-left: 24px;
+  padding-left: 20px;
 }
 
 .typing-indicator::before {
   content: '🤖';
   position: absolute;
-  left: -40px;
+  left: -44px;
   top: 50%;
   transform: translateY(-50%);
   font-size: 16px;
@@ -347,6 +349,18 @@ a:focus,.btn:focus{outline:3px solid var(--ring);outline-offset:2px}
   }
 }
 
+/* Demo Section Transitions */
+#demo {
+  transition: all 0.3s ease-in-out;
+  opacity: 0;
+  transform: translateY(-10px);
+}
+
+#demo[style*="block"] {
+  opacity: 1;
+  transform: translateY(0);
+}
+
 /* Responsive Design */
 @media (max-width: 768px) {
   .chatbot-section {
@@ -386,6 +400,11 @@ a:focus,.btn:focus{outline:3px solid var(--ring);outline-offset:2px}
   
   .message-bubble.bot {
     margin-right: 15%;
+    margin-left: 40px;
+  }
+  
+  .typing-indicator {
+    margin-left: 40px;
   }
 }
 
