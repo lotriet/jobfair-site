@@ -22,6 +22,11 @@
   </head>
   <body>
     <div class="wrap">
+      <div class="theme-toggle-container">
+        <button id="themeToggle" class="theme-toggle" onclick="toggleTheme()" title="Toggle theme">
+          <span class="theme-icon">🌙</span>
+        </button>
+      </div>
       <header class="hero">
         <h1>Christo Lotriet</h1>
         <div class="sub">Software Developer — .NET & C# · APIs · Databases</div>
@@ -133,8 +138,7 @@
 
         <div class="suggestions-container">
           <div class="suggestions-label">Quick Questions</div>
-          <div id="suggestions" class="suggestions">
-          </div>
+          <div id="suggestions" class="suggestions"></div>
         </div>
       </section>
 

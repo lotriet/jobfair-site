@@ -80,7 +80,7 @@ Remember: You ARE representing Christo, so speak in first person when appropriat
                 {
                     _logger.LogInformation("Loading CV knowledge from website...");
                     var websiteContent = await FetchWebsiteContent("https://lotriet.dev");
-                    
+
                     var prompt = @"Extract key professional information about Christo Lotriet from this website content. 
                     Focus on: work experience, skills, education, projects, contact info.
                     Provide a concise summary in 2-3 paragraphs that I can use to answer questions about him.
@@ -152,7 +152,7 @@ CONTACT: Email gclotriet@outlook.com, LinkedIn linkedin.com/in/gclotriet, GitHub
                 else
                 {
                     var errorContent = await response.Content.ReadAsStringAsync();
-                    _logger.LogError("LLM API call failed with status: {StatusCode}, Response: {Response}", 
+                    _logger.LogError("LLM API call failed with status: {StatusCode}, Response: {Response}",
                         response.StatusCode, errorContent);
                 }
 

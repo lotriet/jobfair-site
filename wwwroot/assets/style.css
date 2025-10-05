@@ -1,7 +1,106 @@
-:root { --bg:#0b1220; --panel:#0f172a; --ink:#e5e7eb; --muted:#94a3b8; --accent:#60a5fa; --accent-strong:#3b82f6; --ring:rgba(96,165,250,.35); --primary: #3b82f6; --border: rgba(148,163,184,.25); --text: var(--ink); }
-@media (prefers-color-scheme: light){
-  :root{ --bg:#f6f8fb; --panel:#ffffff; --ink:#0b1220; --muted:#566074; --accent:#2563eb; --accent-strong:#1d4ed8; --ring:rgba(37,99,235,.25); --primary: #2563eb; --border: #e2e8f0; --text: var(--ink);} }
-html,body{margin:0;padding:0;background:var(--bg);color:var(--ink);font-family: Inter, system-ui, Segoe UI, Roboto, Helvetica, Arial, sans-serif}
+/* Theme Variables */
+:root {
+  --bg: #0b1220;
+  --panel: #0f172a;
+  --ink: #e5e7eb;
+  --muted: #94a3b8;
+  --accent: #60a5fa;
+  --accent-strong: #3b82f6;
+  --ring: rgba(96, 165, 250, 0.35);
+  --primary: #3b82f6;
+  --border: rgba(148, 163, 184, 0.25);
+  --text: var(--ink);
+}
+
+/* Light theme */
+[data-theme="light"] {
+  --bg: #f6f8fb;
+  --panel: #ffffff;
+  --ink: #0b1220;
+  --muted: #566074;
+  --accent: #2563eb;
+  --accent-strong: #1d4ed8;
+  --ring: rgba(37, 99, 235, 0.25);
+  --primary: #2563eb;
+  --border: #e2e8f0;
+  --text: var(--ink);
+}
+
+/* Auto theme detection (fallback) */
+@media (prefers-color-scheme: light) {
+  :root:not([data-theme]) {
+    --bg: #f6f8fb;
+    --panel: #ffffff;
+    --ink: #0b1220;
+    --muted: #566074;
+    --accent: #2563eb;
+    --accent-strong: #1d4ed8;
+    --ring: rgba(37, 99, 235, 0.25);
+    --primary: #2563eb;
+    --border: #e2e8f0;
+    --text: var(--ink);
+  }
+}
+
+/* Theme Toggle Button */
+.theme-toggle-container {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  z-index: 1000;
+}
+
+.theme-toggle {
+  background: var(--panel);
+  border: 2px solid var(--border);
+  border-radius: 50%;
+  width: 50px;
+  height: 50px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 24px;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  backdrop-filter: blur(10px);
+}
+
+.theme-toggle:hover {
+  transform: scale(1.1);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.2);
+  border-color: var(--accent);
+}
+
+.theme-toggle:active {
+  transform: scale(0.95);
+}
+
+.theme-icon {
+  transition: transform 0.3s ease;
+}
+
+.theme-toggle:hover .theme-icon {
+  transform: rotate(20deg);
+}
+/* Base Styles with Theme Transitions */
+html, body {
+  margin: 0;
+  padding: 0;
+  background: var(--bg);
+  color: var(--ink);
+  font-family: Inter, system-ui, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* Enhanced theme transitions for key elements */
+.wrap,
+.card,
+.btn,
+.chatbot-section,
+.theme-toggle {
+  transition: background-color 0.3s ease, border-color 0.3s ease, color 0.3s ease, box-shadow 0.3s ease;
+}
 .wrap{max-width:980px;margin:0 auto;padding:28px}
 .hero{display:grid;gap:10px;margin:8px 0 24px}
 .hero h1{font-size:42px;line-height:1.1;margin:0;background:linear-gradient(90deg,var(--ink),var(--accent));-webkit-background-clip:text;background-clip:text;color:transparent}
@@ -389,6 +488,17 @@ a:focus,.btn:focus{outline:3px solid var(--ring);outline-offset:2px}
 
 /* Responsive Design */
 @media (max-width: 768px) {
+  .theme-toggle-container {
+    top: 15px;
+    right: 15px;
+  }
+  
+  .theme-toggle {
+    width: 45px;
+    height: 45px;
+    font-size: 20px;
+  }
+  
   .chatbot-section {
     padding: 24px 20px;
     margin: 24px 0;
