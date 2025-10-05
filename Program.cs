@@ -20,6 +20,9 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
 
 // Register services
 builder.Services.AddScoped<IProductService, ProductService>();
+builder.Services.AddScoped<CVDataService>();
+builder.Services.AddHttpClient<LLMService>();
+builder.Services.AddScoped<SmartChatbotService>();
 
 // Add CORS support
 builder.Services.AddCors(options =>

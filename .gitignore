@@ -17,6 +17,15 @@ msbuild.wrn
 # Visual Studio 2015 cache/options directory
 .vs/
 
+# Environment variables and secrets
+.env
+.env.local
+.env.development
+.env.test
+.env.production
+appsettings.local.json
+secrets.json
+
 # User-specific files
 *.suo
 *.user

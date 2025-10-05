@@ -145,3 +145,143 @@ function addQRStyling(qrContainer) {
     `;
   });
 }
+
+// Chatbot functionality
+class PortfolioChatbot {
+  constructor() {
+    this.chatContainer = document.getElementById("chatContainer");
+    this.chatInput = document.getElementById("chatInput");
+    this.sendBtn = document.getElementById("sendBtn");
+    this.suggestionsContainer = document.getElementById("suggestions");
+
+    this.init();
+  }
+
+  init() {
+    if (!this.chatContainer) return;
+
+    // Load suggested questions
+    this.loadSuggestions();
+
+    // Event listeners
+    this.sendBtn.addEventListener("click", () => this.sendMessage());
+    this.chatInput.addEventListener("keypress", (e) => {
+      if (e.key === "Enter") this.sendMessage();
+    });
+
+    // Auto-focus input
+    this.chatInput.focus();
+  }
+
+  async loadSuggestions() {
+    try {
+      const response = await fetch("/api/chatbot/suggestions");
+      const suggestions = await response.json();
+
+      this.suggestionsContainer.innerHTML = suggestions
+        .slice(0, 5) // Show first 5 suggestions
+        .map(
+          (suggestion) => `
+          <span class="suggestion-chip" onclick="chatbot.sendSuggestion('${suggestion}')">
+            ${suggestion}
+          </span>
+        `
+        )
+        .join("");
+    } catch (error) {
+      console.error("Failed to load suggestions:", error);
+    }
+  }
+
+  sendSuggestion(message) {
+    this.chatInput.value = message;
+    this.sendMessage();
+  }
+
+  async sendMessage() {
+    const message = this.chatInput.value.trim();
+    if (!message) return;
+
+    // Add user message to chat
+    this.addMessage(message, false);
+    this.chatInput.value = "";
+
+    // Show typing indicator
+    this.showTyping();
+
+    try {
+      const response = await fetch("/api/chatbot/chat", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ message: message }),
+      });
+
+      if (!response.ok) throw new Error("Failed to get response");
+
+      const data = await response.json();
+
+      // Remove typing indicator and add bot response
+      this.hideTyping();
+      this.addMessage(data.message, true);
+    } catch (error) {
+      this.hideTyping();
+      this.addMessage(
+        "Sorry, I seem to be having trouble connecting. Please try again!",
+        true
+      );
+      console.error("Chatbot error:", error);
+    }
+  }
+
+  addMessage(message, isBot) {
+    const messageDiv = document.createElement("div");
+    messageDiv.className = "chat-message";
+
+    const bubbleDiv = document.createElement("div");
+    bubbleDiv.className = `message-bubble ${isBot ? "bot" : "user"}`;
+    bubbleDiv.textContent = message;
+
+    messageDiv.appendChild(bubbleDiv);
+    this.chatContainer.appendChild(messageDiv);
+
+    // Scroll to bottom
+    this.chatContainer.scrollTop = this.chatContainer.scrollHeight;
+  }
+
+  showTyping() {
+    const typingDiv = document.createElement("div");
+    typingDiv.id = "typing-indicator";
+    typingDiv.className = "typing-indicator";
+    typingDiv.style.display = "flex";
+    typingDiv.innerHTML = `
+      🤖 Thinking
+      <div class="typing-dots">
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+    `;
+
+    this.chatContainer.appendChild(typingDiv);
+    this.chatContainer.scrollTop = this.chatContainer.scrollHeight;
+  }
+
+  hideTyping() {
+    const typingIndicator = document.getElementById("typing-indicator");
+    if (typingIndicator) {
+      typingIndicator.remove();
+    }
+  }
+}
+
+// Initialize chatbot when DOM is ready
+let chatbot;
+if (document.readyState === "loading") {
+  document.addEventListener("DOMContentLoaded", () => {
+    chatbot = new PortfolioChatbot();
+  });
+} else {
+  chatbot = new PortfolioChatbot();
+}
