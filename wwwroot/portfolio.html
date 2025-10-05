@@ -92,28 +92,17 @@
       </section>
 
       <!-- AI Chatbot Section -->
-      <section class="card" id="chatbot" style="margin-top: 14px">
-        <h2 style="margin: 0 0 8px 0">🤖 Smart AI Portfolio Assistant</h2>
-        <p style="margin: 0 0 15px 0; color: var(--muted)">
-          Ask me anything about Christo's experience! I use real AI (GPT-4.1) to
-          analyze his live CV data and provide accurate, contextual responses.
-        </p>
+      <section class="chatbot-section" id="chatbot">
+        <div class="chatbot-header">
+          <h3>🤖 Smart AI Portfolio Assistant</h3>
+          <p>
+            Ask me anything about Christo's experience! I use real AI (GPT-4.1) to
+            analyze his live CV data and provide accurate, contextual responses.
+          </p>
+        </div>
 
-        <div
-          id="chatContainer"
-          style="
-            height: 300px;
-            border: 1px solid var(--border);
-            border-radius: 8px;
-            overflow-y: auto;
-            padding: 15px;
-            background: var(--bg);
-            margin-bottom: 15px;
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI',
-              sans-serif;
-          "
-        >
-          <div class="chat-message bot-message">
+        <div class="chat-container" id="chatContainer">
+          <div class="chat-message">
             <div class="message-bubble bot">
               👋 Hello! I'm Christo's AI assistant. Ask me about his .NET
               experience, projects, or availability!
@@ -121,39 +110,23 @@
           </div>
         </div>
 
-        <div style="display: flex; gap: 8px; margin-bottom: 10px">
+        <div class="chat-input-container">
           <input
             type="text"
             id="chatInput"
+            class="chat-input"
             placeholder="Ask about skills, experience, projects..."
-            style="
-              flex: 1;
-              padding: 10px 12px;
-              border: 1px solid var(--border);
-              border-radius: 6px;
-              font-size: 14px;
-              background: var(--bg);
-              color: var(--text);
-            "
           />
-          <button
-            id="sendBtn"
-            style="
-              padding: 10px 20px;
-              background: var(--primary);
-              color: white;
-              border: none;
-              border-radius: 6px;
-              cursor: pointer;
-              font-weight: 500;
-            "
-          >
+          <button id="sendBtn" class="send-btn">
             Send
           </button>
         </div>
 
-        <div id="suggestions" style="display: flex; flex-wrap: wrap; gap: 6px">
-          <!-- Suggestion chips will be added by JavaScript -->
+        <div class="suggestions-container">
+          <div class="suggestions-label">Quick Questions</div>
+          <div id="suggestions" class="suggestions">
+            <!-- Suggestion chips will be added by JavaScript -->
+          </div>
         </div>
       </section>
 

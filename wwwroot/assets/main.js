@@ -237,7 +237,7 @@ class PortfolioChatbot {
 
   addMessage(message, isBot) {
     const messageDiv = document.createElement("div");
-    messageDiv.className = "chat-message";
+    messageDiv.className = `chat-message ${isBot ? "" : "user-message"}`;
 
     const bubbleDiv = document.createElement("div");
     bubbleDiv.className = `message-bubble ${isBot ? "bot" : "user"}`;
@@ -256,7 +256,7 @@ class PortfolioChatbot {
     typingDiv.className = "typing-indicator";
     typingDiv.style.display = "flex";
     typingDiv.innerHTML = `
-      🤖 Thinking
+      � Thinking
       <div class="typing-dots">
         <span></span>
         <span></span>
