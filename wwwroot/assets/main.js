@@ -1,29 +1,30 @@
 // Theme Management
 function initializeTheme() {
-  const savedTheme = localStorage.getItem('theme');
-  const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-  
+  const savedTheme = localStorage.getItem("theme");
+  const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
+
   // Determine initial theme
-  const initialTheme = savedTheme || (prefersDark ? 'dark' : 'light');
-  
+  const initialTheme = savedTheme || (prefersDark ? "dark" : "light");
+
   // Apply theme
-  document.documentElement.setAttribute('data-theme', initialTheme);
+  document.documentElement.setAttribute("data-theme", initialTheme);
   updateThemeIcon(initialTheme);
 }
 
 function toggleTheme() {
-  const currentTheme = document.documentElement.getAttribute('data-theme') || 'dark';
-  const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
-  
-  document.documentElement.setAttribute('data-theme', newTheme);
-  localStorage.setItem('theme', newTheme);
+  const currentTheme =
+    document.documentElement.getAttribute("data-theme") || "dark";
+  const newTheme = currentTheme === "dark" ? "light" : "dark";
+
+  document.documentElement.setAttribute("data-theme", newTheme);
+  localStorage.setItem("theme", newTheme);
   updateThemeIcon(newTheme);
 }
 
 function updateThemeIcon(theme) {
-  const themeIcon = document.querySelector('.theme-icon');
+  const themeIcon = document.querySelector(".theme-icon");
   if (themeIcon) {
-    themeIcon.textContent = theme === 'dark' ? '☀️' : '🌙';
+    themeIcon.textContent = theme === "dark" ? "☀️" : "🌙";
   }
 }
 
