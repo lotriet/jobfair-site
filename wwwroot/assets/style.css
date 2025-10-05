@@ -191,8 +191,8 @@ a:focus,.btn:focus{outline:3px solid var(--ring);outline-offset:2px}
   background: var(--bg);
   border: 1px solid var(--border);
   border-radius: 16px;
-  min-height: 320px;
-  max-height: 400px;
+  min-height: 200px;
+  max-height: 350px;
   overflow-y: auto;
   padding: 24px;
   margin-bottom: 20px;
@@ -261,7 +261,7 @@ a:focus,.btn:focus{outline:3px solid var(--ring);outline-offset:2px}
   color: var(--ink);
   border-bottom-left-radius: 6px;
   margin-right: 25%;
-  margin-left: 50px;
+  margin-left: 40px;
   position: relative;
   padding-left: 20px;
 }
@@ -269,13 +269,13 @@ a:focus,.btn:focus{outline:3px solid var(--ring);outline-offset:2px}
 .message-bubble.bot::before {
   content: '🤖';
   position: absolute;
-  left: -44px;
+  left: -36px;
   top: 50%;
   transform: translateY(-50%);
   font-size: 16px;
   background: linear-gradient(135deg, var(--accent), var(--accent-strong));
-  width: 32px;
-  height: 32px;
+  width: 28px;
+  height: 28px;
   border-radius: 50%;
   display: flex;
   align-items: center;
@@ -424,7 +424,7 @@ a:focus,.btn:focus{outline:3px solid var(--ring);outline-offset:2px}
   margin-bottom: 16px;
   font-weight: 500;
   margin-right: 25%;
-  margin-left: 50px;
+  margin-left: 40px;
   position: relative;
   padding-left: 20px;
 }
@@ -432,13 +432,13 @@ a:focus,.btn:focus{outline:3px solid var(--ring);outline-offset:2px}
 .typing-indicator::before {
   content: '🤖';
   position: absolute;
-  left: -44px;
+  left: -36px;
   top: 50%;
   transform: translateY(-50%);
   font-size: 16px;
   background: linear-gradient(135deg, var(--accent), var(--accent-strong));
-  width: 32px;
-  height: 32px;
+  width: 28px;
+  height: 28px;
   border-radius: 50%;
   display: flex;
   align-items: center;
