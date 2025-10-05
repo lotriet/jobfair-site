@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Premium QR Code Showcase - Christo Lotriet</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+    <style>
+      body {
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Inter",
+          sans-serif;
+        margin: 0;
+        padding: 20px;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        min-height: 100vh;
+        color: white;
+      }
+
+      .container {
+        max-width: 1200px;
+        margin: 0 auto;
+      }
+
+      .header {
+        text-align: center;
+        margin-bottom: 40px;
+      }
+
+      .header h1 {
+        font-size: 3rem;
+        margin: 0;
+        background: linear-gradient(45deg, #fff, #f0f9ff);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+      }
+
+      .header p {
+        font-size: 1.2rem;
+        opacity: 0.9;
+        margin: 10px 0;
+      }
+
+      .qr-showcase {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 30px;
+        margin-bottom: 40px;
+      }
+
+      .qr-card {
+        background: rgba(255, 255, 255, 0.1);
+        backdrop-filter: blur(10px);
+        border-radius: 20px;
+        padding: 30px;
+        text-align: center;
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        transition: all 0.3s ease;
+      }
+
+      .qr-card:hover {
+        transform: translateY(-10px);
+        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+      }
+
+      .qr-container {
+        margin: 20px 0;
+        display: inline-block;
+        position: relative;
+      }
+
+      .card-title {
+        font-size: 1.5rem;
+        font-weight: 600;
+        margin-bottom: 10px;
+      }
+
+      .card-description {
+        opacity: 0.8;
+        margin-bottom: 20px;
+      }
+
+      .download-btn {
+        background: linear-gradient(45deg, #4facfe, #00f2fe);
+        color: white;
+        border: none;
+        padding: 12px 24px;
+        border-radius: 25px;
+        cursor: pointer;
+        font-weight: 600;
+        transition: all 0.3s ease;
+        margin-top: 20px;
+      }
+
+      .download-btn:hover {
+        transform: scale(1.05);
+        box-shadow: 0 5px 15px rgba(79, 172, 254, 0.4);
+      }
+
+      .footer {
+        text-align: center;
+        margin-top: 40px;
+        opacity: 0.8;
+      }
+
+      /* QR Logo Styles */
+      .qr-logo-premium {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 45px;
+        height: 45px;
+        background: linear-gradient(135deg, #667eea, #764ba2, #f093fb);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: white;
+        font-weight: 700;
+        font-size: 16px;
+        border: 3px solid white;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        z-index: 10;
+      }
+
+      .qr-logo-modern {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 45px;
+        height: 45px;
+        background: #2d3748;
+        border: 3px solid #4299e1;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: white;
+        font-weight: 700;
+        font-size: 16px;
+        z-index: 10;
+      }
+
+      .qr-logo-glass {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 45px;
+        height: 45px;
+        background: rgba(255, 255, 255, 0.9);
+        backdrop-filter: blur(10px);
+        border: 2px solid rgba(100, 149, 237, 0.5);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: #2d3748;
+        font-weight: 700;
+        font-size: 16px;
+        z-index: 10;
+      }
+
+      .qr-logo-colorful {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 45px;
+        height: 45px;
+        background: linear-gradient(45deg, #ff6b6b, #4ecdc4, #45b7d1);
+        border: 3px solid white;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: white;
+        font-weight: 700;
+        font-size: 16px;
+        z-index: 10;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="header">
+        <h1>Premium QR Codes</h1>
+        <p>Professional portfolio access with stunning designs</p>
+        <p><strong>Christo Lotriet</strong> — Software Developer</p>
+      </div>
+
+      <div class="qr-showcase">
+        <div class="qr-card">
+          <div class="card-title">Premium Gradient</div>
+          <div class="card-description">
+            Elegant gradient design with professional styling
+          </div>
+          <div class="qr-container" id="qr1">
+            <div class="qr-logo-premium">CL</div>
+          </div>
+          <button
+            class="download-btn"
+            onclick="downloadQR('qr1', 'premium-gradient')"
+          >
+            Download
+          </button>
+        </div>
+
+        <div class="qr-card">
+          <div class="card-title">Modern Minimal</div>
+          <div class="card-description">
+            Clean, modern design with accent colors
+          </div>
+          <div class="qr-container" id="qr2">
+            <div class="qr-logo-modern">CL</div>
+          </div>
+          <button
+            class="download-btn"
+            onclick="downloadQR('qr2', 'modern-minimal')"
+          >
+            Download
+          </button>
+        </div>
+
+        <div class="qr-card">
+          <div class="card-title">Glassmorphism</div>
+          <div class="card-description">
+            Trendy glass effect with blur and transparency
+          </div>
+          <div class="qr-container" id="qr3">
+            <div class="qr-logo-glass">CL</div>
+          </div>
+          <button
+            class="download-btn"
+            onclick="downloadQR('qr3', 'glassmorphism')"
+          >
+            Download
+          </button>
+        </div>
+
+        <div class="qr-card">
+          <div class="card-title">Creative Colorful</div>
+          <div class="card-description">
+            Vibrant colors perfect for creative portfolios
+          </div>
+          <div class="qr-container" id="qr4">
+            <div class="qr-logo-colorful">CL</div>
+          </div>
+          <button
+            class="download-btn"
+            onclick="downloadQR('qr4', 'creative-colorful')"
+          >
+            Download
+          </button>
+        </div>
+      </div>
+
+      <div class="footer">
+        <p>All QR codes point to: <strong>https://lotriet.dev</strong></p>
+        <p>Choose your favorite style and download for professional use!</p>
+      </div>
+    </div>
+
+    <script>
+      const LANDING_URL = "https://lotriet.dev";
+
+      // QR code configurations for different styles
+      const qrConfigs = {
+        qr1: {
+          // Premium
+          colorDark: "#1a365d",
+          colorLight: "#ffffff",
+        },
+        qr2: {
+          // Modern
+          colorDark: "#2d3748",
+          colorLight: "#f7fafc",
+        },
+        qr3: {
+          // Glass
+          colorDark: "#4a5568",
+          colorLight: "rgba(255,255,255,0.9)",
+        },
+        qr4: {
+          // Colorful
+          colorDark: "#6b46c1",
+          colorLight: "#fef3c7",
+        },
+      };
+
+      window.addEventListener("DOMContentLoaded", () => {
+        // Generate all QR codes
+        Object.keys(qrConfigs).forEach((qrId) => {
+          const config = qrConfigs[qrId];
+          const container = document.getElementById(qrId);
+
+          if (container && window.QRCode) {
+            new QRCode(container, {
+              text: LANDING_URL,
+              width: 200,
+              height: 200,
+              colorDark: config.colorDark,
+              colorLight: config.colorLight,
+              correctLevel: QRCode.CorrectLevel.H,
+            });
+
+            // Style container
+            container.style.position = "relative";
+            container.style.cursor = "pointer";
+            container.title = "Click to visit portfolio";
+
+            // Make clickable
+            container.addEventListener("click", () => {
+              window.open(LANDING_URL, "_blank");
+            });
+          }
+        });
+      });
+
+      function downloadQR(qrId, styleName) {
+        const config = qrConfigs[qrId];
+
+        // Create high-res version for download
+        const canvas = document.createElement("canvas");
+        const size = 800;
+        canvas.width = size;
+        canvas.height = size;
+
+        QRCode.toCanvas(
+          canvas,
+          LANDING_URL,
+          {
+            width: size,
+            height: size,
+            colorDark: config.colorDark,
+            colorLight: config.colorLight,
+            correctLevel: QRCode.CorrectLevel.H,
+          },
+          function (error) {
+            if (error) {
+              console.error(error);
+              return;
+            }
+
+            // Add logo overlay to canvas
+            const ctx = canvas.getContext("2d");
+            const logoSize = 100;
+            const logoX = (size - logoSize) / 2;
+            const logoY = (size - logoSize) / 2;
+
+            // Create gradient for logo background
+            const gradient = ctx.createLinearGradient(
+              logoX,
+              logoY,
+              logoX + logoSize,
+              logoY + logoSize
+            );
+
+            if (styleName.includes("premium")) {
+              gradient.addColorStop(0, "#667eea");
+              gradient.addColorStop(0.5, "#764ba2");
+              gradient.addColorStop(1, "#f093fb");
+            } else if (styleName.includes("modern")) {
+              gradient.addColorStop(0, "#2d3748");
+              gradient.addColorStop(1, "#4299e1");
+            } else if (styleName.includes("glass")) {
+              gradient.addColorStop(0, "rgba(255,255,255,0.9)");
+              gradient.addColorStop(1, "rgba(100,149,237,0.5)");
+            } else {
+              gradient.addColorStop(0, "#ff6b6b");
+              gradient.addColorStop(0.5, "#4ecdc4");
+              gradient.addColorStop(1, "#45b7d1");
+            }
+
+            // Draw logo background
+            ctx.fillStyle = gradient;
+            ctx.beginPath();
+            ctx.arc(size / 2, size / 2, logoSize / 2, 0, 2 * Math.PI);
+            ctx.fill();
+
+            // Draw logo border
+            ctx.strokeStyle = "white";
+            ctx.lineWidth = 6;
+            ctx.stroke();
+
+            // Draw logo text
+            ctx.fillStyle = styleName.includes("glass") ? "#2d3748" : "white";
+            ctx.font = "bold 48px Arial";
+            ctx.textAlign = "center";
+            ctx.textBaseline = "middle";
+            ctx.fillText("CL", size / 2, size / 2);
+
+            // Download
+            const link = document.createElement("a");
+            link.download = `christo-lotriet-qr-${styleName}.png`;
+            link.href = canvas.toDataURL();
+            link.click();
+          }
+        );
+      }
+    </script>
+  </body>
+</html>

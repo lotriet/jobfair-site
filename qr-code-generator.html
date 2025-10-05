@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>QR Code - Portfolio Site</title>
+    <title>QR Code with Logo - Portfolio Site</title>
     <script src="https://cdn.jsdelivr.net/npm/qrcode@1.5.3/build/qrcode.min.js"></script>
     <style>
       body {
@@ -24,6 +24,26 @@
       }
       #qrcode {
         margin: 20px 0;
+        position: relative;
+        display: inline-block;
+      }
+      .logo-overlay {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 60px;
+        height: 60px;
+        background: #fff;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border: 3px solid #000;
+        font-weight: bold;
+        font-size: 18px;
+        color: #333;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
       }
       .url-text {
         font-family: monospace;
@@ -89,12 +109,14 @@
     </style>
   </head>
   <body>
-    <h1>🎯 Portfolio QR Code</h1>
+    <h1>🎯 Portfolio QR Code with Logo</h1>
     <p class="subtitle">Scan to view the live .NET Micro API demonstration</p>
 
     <div class="qr-container">
       <h2>lotriet-jobfair-site</h2>
-      <div id="qrcode"></div>
+      <div id="qrcode">
+        <div class="logo-overlay" id="logo">LT</div>
+      </div>
 
       <div class="url-text" id="url-display">
         https://lotriet-jobfair-site-d4gvegbgaybne9cq.canadacentral-01.azurewebsites.net
@@ -122,7 +144,7 @@
       const url =
         "https://lotriet-jobfair-site-d4gvegbgaybne9cq.canadacentral-01.azurewebsites.net";
 
-      // Generate QR code
+      // Generate QR code with higher error correction for logo overlay
       QRCode.toCanvas(
         document.getElementById("qrcode"),
         url,
@@ -133,35 +155,70 @@
             dark: "#000000",
             light: "#FFFFFF",
           },
-          errorCorrectionLevel: "M",
+          errorCorrectionLevel: "H", // High error correction for logo overlay
         },
         function (error) {
           if (error) console.error(error);
-          console.log("QR code generated successfully!");
+          console.log("QR code with logo generated successfully!");
         }
       );
 
       function downloadQR() {
-        QRCode.toDataURL(
+        // Create a canvas to combine QR code and logo
+        const canvas = document.createElement("canvas");
+        const ctx = canvas.getContext("2d");
+        const size = 500;
+        canvas.width = size;
+        canvas.height = size;
+
+        // Generate QR code on canvas
+        QRCode.toCanvas(
+          canvas,
           url,
           {
-            width: 500,
-            height: 500,
+            width: size,
+            height: size,
             color: {
               dark: "#000000",
               light: "#FFFFFF",
             },
-            errorCorrectionLevel: "M",
+            errorCorrectionLevel: "H",
           },
-          function (err, dataUrl) {
+          function (err) {
             if (err) {
               console.error(err);
               return;
             }
 
+            // Draw logo in center
+            const logoSize = 80;
+            const logoX = (size - logoSize) / 2;
+            const logoY = (size - logoSize) / 2;
+
+            // Draw white circle background for logo
+            ctx.fillStyle = "#FFFFFF";
+            ctx.beginPath();
+            ctx.arc(size / 2, size / 2, logoSize / 2 + 5, 0, 2 * Math.PI);
+            ctx.fill();
+
+            // Draw logo border
+            ctx.strokeStyle = "#000000";
+            ctx.lineWidth = 3;
+            ctx.beginPath();
+            ctx.arc(size / 2, size / 2, logoSize / 2, 0, 2 * Math.PI);
+            ctx.stroke();
+
+            // Draw logo text
+            ctx.fillStyle = "#000000";
+            ctx.font = "bold 32px Arial";
+            ctx.textAlign = "center";
+            ctx.textBaseline = "middle";
+            ctx.fillText("LT", size / 2, size / 2);
+
+            // Download the canvas
             const link = document.createElement("a");
-            link.download = "lotriet-portfolio-qrcode.png";
-            link.href = dataUrl;
+            link.download = "lotriet-portfolio-qrcode-with-logo.png";
+            link.href = canvas.toDataURL();
             link.click();
           }
         );
