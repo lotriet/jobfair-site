@@ -239,6 +239,32 @@ a:focus,.btn:focus{outline:3px solid var(--ring);outline-offset:2px}
   transform: translateY(0);
 }
 
+.clear-btn {
+  padding: 16px 16px;
+  background: rgba(239, 68, 68, 0.1);
+  color: #dc2626;
+  border: 2px solid rgba(239, 68, 68, 0.2);
+  border-radius: 25px;
+  cursor: pointer;
+  font-size: 16px;
+  transition: all 0.3s ease;
+  min-width: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.clear-btn:hover {
+  background: rgba(239, 68, 68, 0.15);
+  border-color: rgba(239, 68, 68, 0.3);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(239, 68, 68, 0.2);
+}
+
+.clear-btn:active {
+  transform: translateY(0);
+}
+
 .suggestions-container {
   margin-top: 20px;
   position: relative;
@@ -388,6 +414,12 @@ a:focus,.btn:focus{outline:3px solid var(--ring);outline-offset:2px}
   
   .chat-input-container {
     gap: 10px;
+  }
+  
+  .clear-btn {
+    padding: 14px 14px;
+    font-size: 14px;
+    min-width: 45px;
   }
   
   .message-bubble {

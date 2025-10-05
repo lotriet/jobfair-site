@@ -274,6 +274,29 @@ class PortfolioChatbot {
       typingIndicator.remove();
     }
   }
+
+  clearChat() {
+    // Remove all messages except the initial welcome message
+    const messages = this.chatContainer.querySelectorAll(".chat-message");
+    messages.forEach((message, index) => {
+      // Keep the first message (welcome message)
+      if (index > 0) {
+        message.remove();
+      }
+    });
+
+    // Clear input field
+    this.chatInput.value = "";
+
+    // Remove any typing indicator
+    this.hideTyping();
+
+    // Focus back to input
+    this.chatInput.focus();
+
+    // Scroll to top
+    this.chatContainer.scrollTop = 0;
+  }
 }
 
 // Initialize chatbot when DOM is ready
@@ -284,4 +307,11 @@ if (document.readyState === "loading") {
   });
 } else {
   chatbot = new PortfolioChatbot();
+}
+
+// Global function for HTML onclick
+function clearChat() {
+  if (chatbot) {
+    chatbot.clearChat();
+  }
 }
