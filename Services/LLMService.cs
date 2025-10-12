@@ -18,7 +18,10 @@ namespace DotNetMicroDemo.Services
 
             // Configure for GitHub Models (free to start)
             _httpClient.BaseAddress = new Uri("https://models.github.ai/inference/");
-            var githubToken = _configuration["GitHubToken"] ?? Environment.GetEnvironmentVariable("GITHUB_TOKEN");
+            var githubToken =
+                _configuration["GitHubToken"]
+                ?? Environment.GetEnvironmentVariable("GITHUB_TOKEN")
+                ?? Environment.GetEnvironmentVariable("GH_MODELS_TOKEN");
             if (!string.IsNullOrEmpty(githubToken))
             {
                 _httpClient.DefaultRequestHeaders.Authorization =

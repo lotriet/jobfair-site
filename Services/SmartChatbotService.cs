@@ -6,13 +6,15 @@ namespace DotNetMicroDemo.Services
     {
         private readonly LLMService _llmService;
         private readonly ILogger<SmartChatbotService> _logger;
+        private readonly ContentModerationService _moderationService;
         private readonly Random _random;
         private readonly List<string> _suggestedQuestions;
 
-        public SmartChatbotService(LLMService llmService, ILogger<SmartChatbotService> logger)
+        public SmartChatbotService(LLMService llmService, ILogger<SmartChatbotService> logger, ContentModerationService moderationService)
         {
             _llmService = llmService;
             _logger = logger;
+            _moderationService = moderationService;
             _random = new Random();
             _suggestedQuestions = InitializeSuggestions();
         }
@@ -27,9 +29,17 @@ namespace DotNetMicroDemo.Services
 
             try
             {
-                // Use real LLM for all responses
+                // Moderate input before sending to LLM to prevent malicious/jailbreak prompts
+                var mod = _moderationService.Moderate(userMessage);
+                if (!mod.Allowed)
+                {
+                    _logger.LogWarning("Blocked user message by moderation: {Reason}", mod.Reason);
+                    return "Your message was blocked because it may violate content policies or would consume excessive resources. Please rephrase and try again.";
+                }
+
+                // Use real LLM for allowed responses
                 var response = await _llmService.ChatWithContext(userMessage);
-                
+
                 // If response is empty or generic error, provide fallback
                 if (string.IsNullOrEmpty(response) || response.Contains("technical difficulties"))
                 {
@@ -98,7 +108,7 @@ namespace DotNetMicroDemo.Services
                 "🚀 Feel free to ask about my programming expertise, database skills, cloud experience, or anything else!"
             };
 
-            return fallbacks[_random.Next(fallbacks.Length)] + 
+            return fallbacks[_random.Next(fallbacks.Length)] +
                    $"\n\n**Try asking**: \"{_suggestedQuestions[_random.Next(_suggestedQuestions.Count)]}\"";
         }
 

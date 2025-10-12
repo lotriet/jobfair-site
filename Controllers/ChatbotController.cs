@@ -8,15 +8,28 @@ namespace DotNetMicroDemo.Controllers
     public class ChatbotController : ControllerBase
     {
         private readonly SmartChatbotService _smartChatbotService;
+        private readonly ContentModerationService _moderationService;
 
-        public ChatbotController(SmartChatbotService smartChatbotService)
+        public ChatbotController(SmartChatbotService smartChatbotService, ContentModerationService moderationService)
         {
             _smartChatbotService = smartChatbotService;
+            _moderationService = moderationService;
         }
 
         [HttpPost("chat")]
         public async Task<IActionResult> Chat([FromBody] ChatRequest request)
         {
+            // Moderate input before calling chatbot logic
+            var mod = _moderationService.Moderate(request.Message);
+            if (!mod.Allowed)
+            {
+                // Return HTTP 400 with structured error
+                return BadRequest(new
+                {
+                    error = "Message blocked by moderation.",
+                    reason = mod.Reason
+                });
+            }
             try
             {
                 var response = await _smartChatbotService.GetResponseAsync(request.Message);
