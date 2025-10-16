@@ -1,0 +1,18 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(find:*)",
+      "Bash(git add:*)",
+      "Bash(git commit -m \"$(cat <<''EOF''\nOptimize app for mobile devices with comprehensive responsive design improvements\n\nMajor fixes:\n- Fix button width issue (was incorrectly increasing to 250px on mobile)\n- Add responsive breakpoints at 480px and 375px for small phones\n- Make business card component fully responsive with vertical stacking\n- Fix feature grid to prevent overflow on small screens\n- Add responsive image rules (max-width: 100%, height: auto)\n\nEnhancements:\n- Progressive typography scaling (42px → 24px on very small screens)\n- Optimized chat component margins for mobile (40px → 30px → 25px)\n- Increase touch target sizes for suggestion chips (44px minimum)\n- Improved spacing and padding throughout for mobile devices\n- Better button sizing with responsive width constraints\n\nAll pages using style.css now benefit from these improvements automatically.\n\n🤖 Generated with [Claude Code](https://claude.com/claude-code)\n\nCo-Authored-By: Claude <noreply@anthropic.com>\nEOF\n)\")",
+      "Bash(git push)",
+      "Bash(cat:*)",
+      "Read(//c/Users/gclot/OneDrive/Documents/jobfair-site/.git/**)",
+      "Read(//c/Users/gclot/OneDrive/Documents/jobfair-site/**)",
+      "Bash(git remote add:*)",
+      "Bash(git push:*)",
+      "Bash(git commit:*)"
+    ],
+    "deny": [],
+    "ask": []
+  }
+}
