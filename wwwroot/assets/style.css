@@ -679,13 +679,29 @@ a:focus,.btn:focus{outline:3px solid var(--ring);outline-offset:2px}
   }
 
   .chat-input-container {
-    gap: 10px;
+    gap: 8px;
+    flex-wrap: nowrap;
+  }
+
+  .chat-input {
+    flex: 1;
+    min-width: 0;
+    padding: 14px 16px;
+    font-size: 14px;
+  }
+
+  .send-btn {
+    padding: 14px 16px;
+    font-size: 14px;
+    min-width: 70px;
+    flex-shrink: 0;
   }
 
   .clear-btn {
     padding: 14px 14px;
     font-size: 14px;
     min-width: 45px;
+    flex-shrink: 0;
   }
 
   .message-bubble {
@@ -771,14 +787,27 @@ a:focus,.btn:focus{outline:3px solid var(--ring);outline-offset:2px}
     border-radius: 12px;
   }
 
+  .chat-input-container {
+    gap: 6px;
+  }
+
   .chat-input {
-    padding: 14px 18px;
+    padding: 12px 14px;
     font-size: 14px;
+    flex: 1;
+    min-width: 0;
   }
 
   .send-btn {
-    padding: 14px 20px;
-    font-size: 14px;
+    padding: 12px 14px;
+    font-size: 13px;
+    min-width: 60px;
+  }
+
+  .clear-btn {
+    padding: 12px 12px;
+    min-width: 42px;
+    font-size: 16px;
   }
 
   .suggestion-chip {
@@ -830,6 +859,27 @@ a:focus,.btn:focus{outline:3px solid var(--ring);outline-offset:2px}
 
   .chat-container {
     padding: 12px;
+  }
+
+  .chat-input-container {
+    gap: 5px;
+  }
+
+  .chat-input {
+    padding: 10px 12px;
+    font-size: 13px;
+  }
+
+  .send-btn {
+    padding: 10px 12px;
+    font-size: 12px;
+    min-width: 55px;
+  }
+
+  .clear-btn {
+    padding: 10px 10px;
+    min-width: 40px;
+    font-size: 15px;
   }
 
   .message-bubble.bot {
