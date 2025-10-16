@@ -93,6 +93,18 @@ html, body {
   transition: background-color 0.3s ease, color 0.3s ease;
 }
 
+/* Responsive Images */
+img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+video {
+  max-width: 100%;
+  height: auto;
+}
+
 /* Enhanced theme transitions for key elements */
 .wrap,
 .card,
@@ -616,65 +628,220 @@ a:focus,.btn:focus{outline:3px solid var(--ring);outline-offset:2px}
 
 /* Responsive Design */
 @media (max-width: 768px) {
+  .wrap {
+    padding: 20px;
+  }
+
+  .hero h1 {
+    font-size: 32px;
+  }
+
+  .hero .sub {
+    font-size: 16px;
+  }
+
   .theme-toggle-container {
     top: 15px;
     right: 15px;
   }
-  
+
   .theme-toggle {
     width: 45px;
     height: 45px;
     font-size: 20px;
   }
-  
+
   .chatbot-section {
     padding: 24px 20px;
     margin: 24px 0;
   }
-  
+
   .chat-container {
     min-height: 280px;
     padding: 20px;
   }
-  
+
   .chatbot-header h3 {
     font-size: 20px;
   }
-  
+
   .suggestions {
-    gap: 6px;
+    gap: 8px;
   }
-  
+
   .suggestion-chip {
-    font-size: 12px;
-    padding: 6px 12px;
+    font-size: 13px;
+    padding: 10px 16px;
+    min-height: 44px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
   }
-  
+
   .chat-input-container {
     gap: 10px;
   }
-  
+
   .clear-btn {
     padding: 14px 14px;
     font-size: 14px;
     min-width: 45px;
   }
-  
+
   .message-bubble {
     max-width: 85%;
   }
-  
+
   .message-bubble.user {
     margin-left: 15%;
   }
-  
+
   .message-bubble.bot {
     margin-right: 15%;
-    margin-left: 40px;
+    margin-left: 35px;
   }
-  
+
   .typing-indicator {
-    margin-left: 40px;
+    margin-left: 35px;
+  }
+
+  .demo-grid {
+    grid-template-columns: 1fr;
+    gap: 8px;
+  }
+}
+
+@media (max-width: 480px) {
+  .wrap {
+    padding: 16px;
+  }
+
+  .hero {
+    gap: 8px;
+    margin: 6px 0 20px;
+  }
+
+  .hero h1 {
+    font-size: 28px;
+  }
+
+  .hero .sub {
+    font-size: 15px;
+  }
+
+  .tag {
+    font-size: 11px;
+    padding: 6px 10px;
+    margin-right: 4px;
+  }
+
+  .cta {
+    gap: 8px;
+  }
+
+  .btn {
+    padding: 10px 14px;
+    font-size: 14px;
+  }
+
+  .card {
+    padding: 16px;
+    border-radius: 14px;
+  }
+
+  .chatbot-section {
+    padding: 20px 16px;
+    margin: 20px 0;
+    border-radius: 16px;
+  }
+
+  .chatbot-header h3 {
+    font-size: 18px;
+  }
+
+  .chatbot-header h3::before {
+    width: 40px;
+    height: 40px;
+    font-size: 24px;
+  }
+
+  .chat-container {
+    min-height: 250px;
+    padding: 16px;
+    border-radius: 12px;
+  }
+
+  .chat-input {
+    padding: 14px 18px;
+    font-size: 14px;
+  }
+
+  .send-btn {
+    padding: 14px 20px;
+    font-size: 14px;
+  }
+
+  .suggestion-chip {
+    font-size: 12px;
+    padding: 10px 14px;
+  }
+
+  .message-bubble {
+    padding: 14px 16px;
+    font-size: 14px;
+    max-width: 90%;
+  }
+
+  .message-bubble.bot {
+    margin-left: 30px;
+    margin-right: 10%;
+  }
+
+  .message-bubble.user {
+    margin-left: 10%;
+  }
+
+  .typing-indicator {
+    margin-left: 30px;
+  }
+
+  .demo-container {
+    padding: 16px;
+  }
+
+  .demo-button {
+    padding: 10px 20px;
+    font-size: 0.95rem;
+  }
+}
+
+@media (max-width: 375px) {
+  .hero h1 {
+    font-size: 24px;
+  }
+
+  .hero .sub {
+    font-size: 14px;
+  }
+
+  .chatbot-section {
+    padding: 16px 12px;
+  }
+
+  .chat-container {
+    padding: 12px;
+  }
+
+  .message-bubble.bot {
+    margin-left: 25px;
+  }
+
+  .typing-indicator {
+    margin-left: 25px;
+  }
+
+  .card {
+    padding: 14px;
   }
 }
 
