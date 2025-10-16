@@ -91,6 +91,8 @@ html, body {
   color: var(--ink);
   font-family: Inter, system-ui, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
   transition: background-color 0.3s ease, color 0.3s ease;
+  overflow-x: hidden;
+  width: 100%;
 }
 
 /* Responsive Images */
@@ -113,7 +115,7 @@ video {
 .theme-toggle {
   transition: background-color 0.3s ease, border-color 0.3s ease, color 0.3s ease, box-shadow 0.3s ease;
 }
-.wrap{max-width:980px;margin:0 auto;padding:28px}
+.wrap{max-width:980px;margin:0 auto;padding:28px;overflow-x:hidden}
 .hero{display:grid;gap:10px;margin:8px 0 24px}
 .hero h1{font-size:42px;line-height:1.1;margin:0;background:linear-gradient(90deg,var(--ink),var(--accent));-webkit-background-clip:text;background-clip:text;color:transparent}
 .hero .sub{font-size:18px;color:var(--muted)}
@@ -147,6 +149,7 @@ a:focus,.btn:focus{outline:3px solid var(--ring);outline-offset:2px}
   position: relative;
   overflow: hidden;
   box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+  max-width: 100%;
 }
 
 .chatbot-section::before {
@@ -207,10 +210,12 @@ a:focus,.btn:focus{outline:3px solid var(--ring);outline-offset:2px}
   min-height: 200px;
   max-height: 350px;
   overflow-y: auto;
+  overflow-x: hidden;
   padding: 24px;
   margin-bottom: 20px;
   position: relative;
   z-index: 1;
+  max-width: 100%;
 }
 
 .chat-container::-webkit-scrollbar {
